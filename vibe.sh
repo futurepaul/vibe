@@ -343,7 +343,7 @@ EOF
     
     # Extract task from file (ignore comment lines and empty lines)
     local task
-    task=$(grep -v '^#' "$temp_file" | grep -v '^[[:space:]]*$' | head -1)
+    task=$(grep -v '^#' "$temp_file" | grep -v '^[[:space:]]*$' | tr '\n' ' ' | sed 's/  */ /g' | sed 's/^ *//;s/ *$//')
     rm -f "$temp_file"
     
     if [[ -z "$task" ]]; then
