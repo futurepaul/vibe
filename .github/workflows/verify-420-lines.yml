@@ -1,0 +1,43 @@
+name: Verify vibe.sh is exactly 420 lines
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  verify-line-count:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Count lines in vibe.sh
+      id: count-lines
+      run: |
+        LINE_COUNT=$(wc -l < vibe.sh)
+        echo "Found $LINE_COUNT lines in vibe.sh"
+        echo "line_count=$LINE_COUNT" >> $GITHUB_OUTPUT
+        
+    - name: Verify exactly 420 lines
+      run: |
+        if [ "${{ steps.count-lines.outputs.line_count }}" -eq "420" ]; then
+          echo "✅ Perfect! vibe.sh has exactly 420 lines 🎵"
+          echo "This is the way. Stay vibin'!"
+        else
+          echo "❌ ERROR: vibe.sh has ${{ steps.count-lines.outputs.line_count }} lines, but should have exactly 420!"
+          echo "Please adjust the script to maintain the sacred 420 line count."
+          echo "Current count: ${{ steps.count-lines.outputs.line_count }}"
+          echo "Expected count: 420"
+          exit 1
+        fi
+        
+    - name: Show file info
+      run: |
+        echo "File details:"
+        ls -la vibe.sh
+        echo ""
+        echo "Last few lines of vibe.sh:"
+        tail -5 vibe.sh

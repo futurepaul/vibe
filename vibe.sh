@@ -272,6 +272,7 @@ merge_worktree() {
     info "Merging $current_branch into $target_branch..."
     
     # Switch to target worktree
+    info "Switching to target worktree: $target_path"
     cd "$target_path" || error "Could not change to target worktree"
     
     # Check for uncommitted changes
