@@ -1,5 +1,7 @@
 # Vibe
 
+Inspired by [@justinmoon](https://github.com/justinmoon)'s setup but with less tmux.
+
 **Git worktree automation with Claude Code integration**
 
 Vibe streamlines your development workflow by automatically creating git worktrees for new features and launching Claude Code with your task description. No more manual branch management or remembering where you left off!
