@@ -14,6 +14,7 @@ Vibe streamlines your development workflow by automatically creating git worktre
 - 🔀 **Smart merging**: Interactive worktree merging with conflict resolution
 - 🌿 **Intelligent branching**: Branches from your current branch by default
 - 🧹 **Cleanup tools**: List and clean up old worktrees
+- 📊 **Code analysis**: Check line counts across your codebase with color-coded output
 
 ## Installation
 
@@ -93,6 +94,12 @@ vibe merge
 
 # Clean up old worktrees
 vibe clean
+
+# Check line counts in source files
+vibe check              # Show all files with line counts
+vibe check red          # Show only files >500 lines (critical)
+vibe check yellow       # Show only files 400-500 lines (warning)
+vibe check green        # Show only files <400 lines (good)
 
 # Help
 vibe --help
