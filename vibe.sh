@@ -276,12 +276,12 @@ merge_worktree() {
     info "Merging $current_branch into $target_branch..."
     info "Switching to target worktree: $target_path"
     cd "$target_path" || error "Could not change to target worktree"
-    # Stash uncommitted changes before rebase
+    # Stash uncommitted changes before merge
     if ! git diff-index --quiet HEAD --; then
         git stash push -m "Auto-stash before merge $(date +%s)"
         local stashed=true
     fi
-    if git rebase "$current_branch"; then
+    if git merge "$current_branch"; then
         info "✅ Merge successful!"
         # Restore stashed changes after successful merge
         if [[ "${stashed:-}" == "true" ]]; then
@@ -309,8 +309,8 @@ merge_worktree() {
         
     else
         warn "❌ Conflicts detected!"
-        info "Try running: claude 'resolve these git conflicts and continue the rebase'"
-        info "After resolving, run: git rebase --continue"
+        info "Try running: claude 'resolve these git conflicts and complete the merge'"
+        info "After resolving, run: git commit"
         return 1
     fi
 }
