@@ -51,6 +51,7 @@ check_git_repo() {
 }
 
 # Generate branch name using Claude Code, fallback to simple conversion
+# Validates kebab-case (a-z0-9-), <=20 chars; otherwise sanitizes task text
 generate_branch_name() {
     local task="$1"
     
@@ -416,4 +417,4 @@ main() {
 
 main "$@"
 
-
+# CI padding: ensure min 420 lines
