@@ -207,8 +207,9 @@ check_files() {
     else
         info "🔍 Checking line counts for all tracked files..."
     fi
-    # Process all git-tracked files for line counting
-    git ls-files | while read -r file; do
+    # Process all git-tracked files for line counting, excluding binary assets
+    # Use git pathspec excludes (case-insensitive) for robustness
+    git ls-files -- ':(exclude,icase)*.png' ':(exclude,icase)*.jpg' ':(exclude,icase)*.jpeg' ':(exclude,icase)*.gif' ':(exclude,icase)*.pdf' | while read -r file; do
         if [[ -f "$file" ]]; then
             local lines
             lines=$(wc -l < "$file" 2>/dev/null || echo "0")
@@ -414,7 +415,5 @@ main() {
 
 
 main "$@"
-
-
 
 
